@@ -32,10 +32,12 @@ ggplot(plot_choline_s, aes(x=pH, y=hydro, group = Enzim, shape=Enzim))+
   theme_bw()
 
 ##### Box plot #####
-ggplot(df, aes(x=E_S, y=pNPA)) +
+ggplot(iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot(fill='#A4A4A4', color="black")+
   labs(y = "pNPA hydrolisi rate (nmol/min/mL Plasma)")+ theme_bw()+
-  theme(text = element_text(size = 14), axis.text.x = element_text(colour = "black"), axis.text.y = element_text(colour = "black")) 
+  theme(text = element_text(size = 14), axis.text.x = element_text(colour = "black"), axis.text.y = element_text(colour = "black")) +
+  geom_signif(comparisons = list(c("setosa", "versicolor"), c("setosa", "virginica"), c("virginica", "versicolor")),
+              map_signif_level = TRUE, y_position = c(6.3, 6.8, 7.5))
 
 ##### Agrupar plots #####
 library(ggpubr)
