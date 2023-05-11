@@ -1,26 +1,62 @@
 #### Histogram ####
 #Para 1 sola variable categorica
-ggplot(data_frame, aes(x = VarNum)) + 
-  geom_histogram(aes(y = after_stat(density)), colour= "black", fill= "white") +
-  geom_density(alpha = .2, fill = "#FF6666") #Esta linea añade la desidad en el grafico
-
-
-#Para 2 o mas variables categoricas
-ggplot(data_frame, aes(x = VarNum, fill = VarCat, color = VarCat)) +
-  geom_histogram(position = "identity", alpha = 1)
-
-ggplot(data_frame, aes(x = VarNum, fill = VarCat)) + 
-  geom_histogram(aes(y = after_stat(density)), colour= "black") +
-  facet_grid(VarCat ~ .)
+ggplot(data_frame, aes(x = VarNum, fill = VarCat)) + #capa de datos
+#data_frame = nuestros datos; VarNum = variable numerica; VarCat = variable categorica
+  geom_histogram(aes(y = after_stat(density)), bins = 5, 
+                 color = "black") + #capa de "grafico"
+                 #bins = numero de barras que tendra el grafico; color = el color de los bordes de dichas barras
+  theme_bw() + #añade el tema black and white, que editaremos mas adelante
+  theme(axis.title.y = element_text(color = "black"), #axis.title.y = titulo del eje y; element_text = modificamos el texto: color, tamaño de letra, tipografia, etc.
+                    axis.text.y = element_blank(),
+                    axis.text.x = element_blank(), #element_blank() = elimina todos los argumentos del elemento (lo borra)
+                    axis.title.x = element_blank(),
+                    axis.ticks.x = element_blank(), #elimina los "ticks"
+                    legend.position = "bottom") + #modifica la posicion de la leyenda (right, left, top, bottom, none)
+  labs(y = "Titulo del eje y", x = "Titulo del eje x", title = "Titulo del grafico") + #modifica el titulo del grafico
+  guides(fill = guide_legend(title = "Titulo de la leyenda")) + #modifica el titulo de la leyenda
+  scale_fill_brewer(palette = "Nombre de la Palette") + #colorea el grafico utilizando una paleta
+  scale_fill_manual(breaks = c("Grupo 1", "Grupo 2", "..."),
+  values=c("Color Grupo 1", "Color Grupo 2", "...")) + #especificamos unos colores personalizados ENTRA EN CONFLICO con la linea anterior (usar solo una)
+  facet_grid(VarCat ~ .) #Genera un grafico para cada grupo (si se usa: legend.position = "none)
 
 #### Bar Plot ####
-ggplot(prc_s, aes(x= pH, y=hydr)) + 
-  geom_bar(stat="identity", color="black", 
-           position=position_dodge()) +
-  geom_errorbar(aes(ymin=hydr, ymax=hydr+se), width=.2,
-                position=position_dodge(.9)) +
-  labs(x="pH", y = "PrC hydrolisi rate (nmol/min/mL plasma)") + theme_classic() +
-  theme(text = element_text(size = 12), axis.text.x = element_text(colour = "black"), axis.text.y = element_text(colour = "black"))
+data_sum <- data.summary(data_frame, "VarNum", c("VarCat1", "VarCat2", "...")) #esta funcion genera comparaciones 1 a 1,
+                                                                               #si introducimos mas de un grupo deberemos tenerlo en cuenta al generar el grafico
+ggplot(data_sum, aes(x = VarCat, y = VarNum, fill = VarCat)) + #capa de datos
+#data_sum = nuestros datos; VarNum = variable numerica; VarCat = variable categorica
+  geom_col(color = "black") + #capa de "grafico"
+  theme_bw() + #añade el tema black and white, que editaremos mas adelante
+  theme(axis.title.y = element_text(color = "black"), #axis.title.y = titulo del eje y; element_text = modificamos el texto: color, tamaño de letra, tipografia, etc.
+                    axis.text.y = element_text(color = "black"),
+                    axis.text.x = element_blank(), #element_blank() = elimina todos los argumentos del elemento (lo borra)
+                    axis.title.x = element_blank(),
+                    axis.ticks.x = element_blank(), #elimina los "ticks"
+                    legend.position = "bottom") + #modifica la posicion de la leyenda (right, left, top, bottom, none)
+  labs(y = "Titulo del eje y", x = "Titulo del eje x", title = "Titulo del grafico") + #modifica el titulo del grafico
+  guides(fill = guide_legend(title = "Titulo de la leyenda")) + #modifica el titulo de la leyenda
+  scale_fill_brewer(palette = "Nombre de la Palette") + #colorea el grafico utilizando una paleta
+  scale_fill_manual(breaks = c("Grupo 1", "Grupo 2", "..."),
+  values=c("Color Grupo 1", "Color Grupo 2", "...")) + #especificamos unos colores personalizados ENTRA EN CONFLICO con la linea anterior (usar solo una)
+  facet_grid(VarCat ~ .) #Genera un grafico para cada grupo (si se usa: legend.position = "none)
+
+##### Box plot #####
+ggplot(data_sum, aes(x = VarCat, y = VarNum, fill = VarCat)) + #capa de datos
+#data_sum = nuestros datos; VarNum = variable numerica; VarCat = variable categorica
+  stat_boxplot(geom = "errorbar", width = 0.15) + #canvia las barras de error (asi le gusta mas a Irene... -_-)
+  geom_boxplot(color = "black") + #capa de "grafico"
+  theme_bw() + #añade el tema black and white, que editaremos mas adelante
+  theme(axis.title.y = element_text(color = "black"), #axis.title.y = titulo del eje y; element_text = modificamos el texto: color, tamaño de letra, tipografia, etc.
+                    axis.text.y = element_text(color = "black"),
+                    axis.text.x = element_blank(), #element_blank() = elimina todos los argumentos del elemento (lo borra)
+                    axis.title.x = element_blank(),
+                    axis.ticks.x = element_blank(), #elimina los "ticks"
+                    legend.position = "bottom") + #modifica la posicion de la leyenda (right, left, top, bottom, none)
+  labs(y = "Titulo del eje y", x = "Titulo del eje x", title = "Titulo del grafico") + #modifica el titulo del grafico
+  guides(fill = guide_legend(title = "Titulo de la leyenda")) + #modifica el titulo de la leyenda
+  scale_fill_brewer(palette = "Nombre de la Palette") + #colorea el grafico utilizando una paleta
+  scale_fill_manual(breaks = c("Grupo 1", "Grupo 2", "..."),
+  values=c("Color Grupo 1", "Color Grupo 2", "...")) + #especificamos unos colores personalizados ENTRA EN CONFLICO con la linea anterior (usar solo una)
+  facet_grid(VarCat ~ .) #Genera un grafico para cada grupo (si se usa: legend.position = "none)
 
 ##### Line Plot #####
 ggplot(plot_choline_s, aes(x=pH, y=hydro, group = Enzim, shape=Enzim))+ 
@@ -30,14 +66,6 @@ ggplot(plot_choline_s, aes(x=pH, y=hydro, group = Enzim, shape=Enzim))+
   geom_point(size=2.5)+
   labs(x="pH", y = "Hydrolisi rate (nmol/min/mL Plasma)")+
   theme_bw()
-
-##### Box plot #####
-ggplot(iris, aes(x = Species, y = Petal.Length)) +
-  geom_boxplot(fill='#A4A4A4', color="black")+
-  labs(y = "pNPA hydrolisi rate (nmol/min/mL Plasma)")+ theme_bw()+
-  theme(text = element_text(size = 14), axis.text.x = element_text(colour = "black"), axis.text.y = element_text(colour = "black")) +
-  geom_signif(comparisons = list(c("setosa", "versicolor"), c("setosa", "virginica"), c("virginica", "versicolor")),
-              map_signif_level = TRUE, y_position = c(6.3, 6.8, 7.5))
 
 ##### Agrupar plots #####
 library(ggpubr)
