@@ -25,6 +25,8 @@ data_sum <- data.summary(data_frame, "VarNum", c("VarCat1", "VarCat2", "...")) #
 ggplot(data_sum, aes(x = VarCat, y = VarNum, fill = VarCat)) + #capa de datos
 #data_sum = nuestros datos; VarNum = variable numerica; VarCat = variable categorica
   geom_col(color = "black") + #capa de "grafico"
+  geom_errorbar(aes(ymin = VarNum - SD, ymax = VarNum + SD), width=.1, 
+                position=position_dodge(0.05)) +
   theme_bw() + #añade el tema black and white, que editaremos mas adelante
   theme(axis.title.y = element_text(color = "black"), #axis.title.y = titulo del eje y; element_text = modificamos el texto: color, tamaño de letra, tipografia, etc.
                     axis.text.y = element_text(color = "black"),
