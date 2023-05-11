@@ -19,8 +19,27 @@ wilcox.test(VarNum ~ VarCat, data = data_set, paired = FALSE, alternative = c("t
 
 
 #### COMPARING MEANS +2 GROUPS ####
-#If parametric:
+#If parametric (ANOVA One-way):
 summary(aov(VarNum ~ VarCat, data = data_set))
+#were: VarNum = variable numerica
+#      VarCat = variable categorica
+#      data_set = nombre de tus datos
+
+#If parametric (ANOVA Two-way):
+#Two-Way ANOVA donde ambas variables categoricas son independientes
+summary(aov(VarNum ~ VarCat + VarCat, data = data_set))
+#were: VarNum = variable numerica
+#      VarCat = variable categorica
+#      data_set = nombre de tus datos
+#Two-Way ANOVA donde se sospecha que ambas variables categoricas se sospecha que pueden interaccionar
+summary(aov(VarNum ~ VarCat * VarCat, data = data_set))
+#were: VarNum = variable numerica
+#      VarCat = variable categorica
+#      data_set = nombre de tus datos
+#MANOVA donde se comparan multiples variables nuericas a la vez
+summary(manova(cbind(VarNum, VarNum) ~ VarCat, data = data_set))
+#Si hay diferencias se debe aplicar:
+summary.aov(manova(cbind(VarNum, VarNum) ~ VarCat, data = data_set))
 #were: VarNum = variable numerica
 #      VarCat = variable categorica
 #      data_set = nombre de tus datos
@@ -32,7 +51,7 @@ kruskal.test(VarNum ~ VarCat, data = data_set)
 #      data_set = nombre de tus datos
 
 #Post-hoc:
-#Para ANOVA (One way):
+#Para ANOVA (One-way):
 TukeyHSD(aov(VarNum ~ VarCat, data = data_set))
 #Se puede assignar un nombre al modelo anova. Si el modelo se llama "aov1": TukeyHSD(aov1)
 
