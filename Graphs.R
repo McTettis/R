@@ -1,5 +1,4 @@
 #### Histogram ####
-#Para 1 sola variable categorica
 ggplot(data_frame, aes(x = VarNum, fill = VarCat)) + #capa de datos
 #data_frame = nuestros datos; VarNum = variable numerica; VarCat = variable categorica
   geom_histogram(aes(y = after_stat(density)), bins = 5, 
