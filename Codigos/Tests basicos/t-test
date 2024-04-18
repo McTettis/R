@@ -1,3 +1,19 @@
+#COMPROVACION DE SUPOSITOS
+#Normalidad
+shapiro.test(VarNum$data_set) #Debe entrarse en forma de vector
+# Donde: VarNum = variable numerica
+#        data_set = nombre de tus datos
+#Tambien puedes usar:
+library(dplyr)
+data_set %>%
+  group_by(VarCat) %>% 
+  summarize(normalidad_p.valor = shapiro.test(VarNum)$p.value)
+
+#Homocedasticidad
+library(car)
+leveneTest(VarNum ~ VarCat, data = data_set)
+
+#TEST ESTADISTICO
 t.test(VarNum ~ VarCat, data = data_set, paired = FALSE, var.equal = FALSE, alternative = c("two.sided"))
 # Donde: VarNum = variable numerica
 #        VarCat = variable categorica
