@@ -1,0 +1,6 @@
+wilcox.test(VarNum ~ VarCat, data = data_set, paired = FALSE, alternative = c("two.sided"))
+# Donde: VarNum = variable numerica
+#       VarCat = variable categorica
+#       data_set = nombre de tus datos
+#       paired = si son muestras apareadas = TRUE; si no son muestras apareadas = FALSE
+#       alternative = test de una cola o dos colas (normalmente "two.sided")
