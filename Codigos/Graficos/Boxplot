@@ -1,0 +1,17 @@
+library(ggplot2)
+ggplot(data_sum, aes(x = VarCat, y = VarNum, fill = VarCat)) + #capa de datos
+#data_sum = nuestros datos; VarNum = variable numerica; VarCat = variable categorica
+  stat_boxplot(geom = "errorbar", width = 0.15) + #canvia las barras de error (asi le gusta mas a Irene... -_-)
+  geom_boxplot(color = "black") + #capa de "grafico"
+  theme_bw() + #añade el tema black and white, que editaremos mas adelante
+  theme(axis.title.y = element_text(color = "black"), #axis.title.y = titulo del eje y; element_text = modificamos el texto: color, tamaño de letra, tipografia, etc.
+                    axis.text.y = element_text(color = "black"),
+                    axis.text.x = element_blank(), #element_blank() = elimina todos los argumentos del elemento (lo borra)
+                    axis.title.x = element_blank(),
+                    axis.ticks.x = element_blank(), #elimina los "ticks"
+                    legend.position = "bottom") + #modifica la posicion de la leyenda (right, left, top, bottom, none)
+  labs(y = "Titulo del eje y", x = "Titulo del eje x", title = "Titulo del grafico") + #modifica el titulo del grafico
+  guides(fill = guide_legend(title = "Titulo de la leyenda")) + #modifica el titulo de la leyenda
+  scale_fill_brewer(palette = "Nombre de la Palette") + #colorea el grafico utilizando una paleta
+  scale_fill_manual(breaks = c("Grupo 1", "Grupo 2", "..."),
+  values=c("Color Grupo 1", "Color Grupo 2", "...")) #especificamos unos colores personalizados ENTRA EN CONFLICO con la linea anterior (usar solo una)
