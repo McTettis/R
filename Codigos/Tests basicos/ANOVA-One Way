@@ -1,0 +1,5 @@
+nombre_del_modelo <- aov(VarNum ~ VarCat, data = data_set)
+summary(nombre_del_modelo)
+# Donde: VarNum = variable numerica
+#       VarCat = variable categorica
+#       data_set = nombre de tus datos
