@@ -1,3 +1,9 @@
+#COMPROVACION DE SUPOSITOS
+#Homocedasticidad
+library(car)
+leveneTest(VarNum ~ VarCat, data = data_set)
+
+#TEST ESTADISTICO
 wilcox.test(VarNum ~ VarCat, data = data_set, paired = FALSE, alternative = c("two.sided"))
 # Donde: VarNum = variable numerica
 #       VarCat = variable categorica
