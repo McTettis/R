@@ -1,0 +1,19 @@
+#COMPROVACION DE SUPOSITOS
+#Homocedasticidad
+library(car)
+leveneTest(VarNum ~ VarCat, data = data_set)
+#Generamos el modelo para comprovar la normalidad de este
+nombre_del_modelo <- kruskal.test(VarNum ~ VarCat, data = data_set)
+# Donde: VarNum = variable numerica
+#       VarCat = variable categorica
+#       data_set = nombre de tus datos
+
+#TEST ESTADISTICO
+summary(nombre_del_modelo)
+#Si hay diferencias:
+dunn.test(data_set$VarNum, data_set$VarCat, kw = FALSE, method = "BH")
+# Donde: VarNum = variable numerica
+#        VarCat = variable categorica
+#        data_set = nombre de tus datos
+#        kw = muestra el resultado del Kruskal-Wallis
+#        method = correccion del p-value. Para ver una lista de todos los posibles algoritmos escribe p.adjust() en la consola
