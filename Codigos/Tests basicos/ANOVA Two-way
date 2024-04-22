@@ -1,0 +1,4 @@
+summary(aov(VarNum ~ VarCat + VarCat, data = data_set))
+# donde: VarNum = variable numerica
+#        VarCat = variable categorica
+#        data_set = nombre de tus datos
