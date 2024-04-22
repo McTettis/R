@@ -1,5 +1,15 @@
-summary(aov(VarNum ~ VarCat * VarCat, data = data_set))
-# donde: VarNum = variable numerica
-#        VarCat = variable categorica
-#        data_set = nombre de tus datos
-#        * sirve para ver interacciones entre grupos, + no muestra la interacción
+#COMPROVACION DE SUPOSITOS
+#Homocedasticidad
+library(car)
+leveneTest(VarNum ~ VarCat, data = data_set)
+#Generamos el modelo para comprovar la normalidad de este
+nombre_del_modelo <- aov(VarNum ~ VarCat * VarCat, data = data_set)
+# Donde: VarNum = variable numerica
+#       VarCat = variable categorica
+#       data_set = nombre de tus datos
+shapiro.test(nombre_del_modelo$residuals)
+
+#TEST ESTADISTICO
+summary(nombre_del_modelo)
+#Si hay diferencias:
+tukeyHSD(nombre_del_modelo)
