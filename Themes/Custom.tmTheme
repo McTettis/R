@@ -298,6 +298,8 @@
 	<key>colorSpaceName</key>
 	<string>sRGB</string>
 	<key>semanticClass</key>
-	<string>theme.dark.monokai</string>
+	<string>theme.dark.paula_theme</string>
+	<key>author</key>
+	<string>Omedes, S.</string>
 </dict>
 </plist>
