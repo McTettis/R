@@ -1,0 +1,23 @@
+#COMPROVACION DE SUPUESTOS
+#Homocedasticidad
+library(car)
+leveneTest(VarNum ~ VarCat * CoVar, data = data_set)
+#Generamos el modelo para comprovar la normalidad de este
+nombre_del_modelo <- aov(VarNum ~ VarCat * VarCat, data = data_set)
+# Donde: VarNum = variable numerica
+#       VarCat = variable categorica
+#       data_set = nombre de tus datos
+shapiro.test(nombre_del_modelo$residuals)
+
+#TEST ESTADISTICO fase I
+summary(nombre_del_modelo) #Se debe verificar que la interaccion VarCat:CoVar no es significativa 
+
+#Si es significativa -> No se puede seguir
+#Si NO es significativa:
+#TEST ESTADISTICO fase II
+nombre_del_modelo <- aov(VarNum ~ VarCat, data = data_set) 
+# Como la covariable afecta por igual a los grupos su efecto es despreciable
+
+
+#Si hay diferencias:
+tukeyHSD(nombre_del_modelo)
