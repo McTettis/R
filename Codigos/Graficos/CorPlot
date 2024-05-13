@@ -1,0 +1,8 @@
+library(corrplot)
+library(Hmisc)
+model_cor <- rcorr(type = "pearson",as.matrix(df)) #Donde: type = metodo (pearson, spearman, ...), df = nombre del dataset
+
+corrplot(model_cor$r, type = "upper", #upper solo grafica la parte superior de la diagonal
+         p.mat = model_cor$P, sig.level = 0.05, insig = "blank", tl.col = "black", method = "pie", 
+#sig.level es el corte para decidir si grafica o no la correlacion (si que quieren mostrar todas poner 1), method = es el tipo de grafico (pie, color, shade, number, ellipse, square, circle)
+         tl.srt = 45, tl.cex = 0.9) #tl.srt = angulo del texto, tl.cex = tamaño del texto
