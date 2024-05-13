@@ -1,0 +1,19 @@
+#PEARSON
+nom_model <- lm(x ~ y, data = df)
+summary(nom_model)
+
+#SPEARMAN
+nom_model <- lm(x ~ y, data = df, method = "spearman")
+summary(nom_model)
+
+#PEARSON CON COVARIABLE
+library(ppcor)
+nom_model <- lm(x ~ y + covariable1, data = df)
+summary(nom_model) #Obtencion de los parametros de la recta
+pcor.test(df$x, df$y, df$covariable) #Obtencion del coeficiente parcial de correlacion
+
+#SPEARMAN CON COVARIABLE
+library(ppcor)
+nom_model <- lm(x ~ y + covariable1, data = df, method = "spearman")
+summary(nom_model) #Obtencion de los parametros de la recta
+pcor.test(df$x, df$y, df$covariable, method = "spearman") #Obtencion del coeficiente parcial de correlacion
